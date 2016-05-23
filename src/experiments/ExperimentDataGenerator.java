@@ -28,9 +28,9 @@ public class ExperimentDataGenerator {
 		System.out.println("Connected database successfully...");
 
 		Statement stmt = conn.createStatement();
-		stmt.executeUpdate("TRUNCATE TABLE Table1");
+		stmt.executeUpdate("TRUNCATE TABLE TABLE1");
 
-		stmt.executeUpdate("TRUNCATE TABLE Table2");
+		stmt.executeUpdate("TRUNCATE TABLE TABLE1");
 
 		System.out.println("trucnated tables....");
 
