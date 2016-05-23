@@ -1,1 +1,1 @@
-# MySQLStreamResultSet
+# MySQLStreamScanner
