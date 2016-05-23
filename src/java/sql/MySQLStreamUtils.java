@@ -11,4 +11,8 @@ public class MySQLStreamUtils {
 		return stmt;
 	}
 
+	public StreamResultSet createResultSet(Connection conn, String query, int batchSize) throws SQLException {
+		return new StreamResultSet(conn, query,batchSize);
+	}
+
 }
