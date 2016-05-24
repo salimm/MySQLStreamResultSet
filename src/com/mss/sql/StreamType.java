@@ -1,4 +1,4 @@
-package java.sql;
+package com.mss.sql;
 
 public enum StreamType {
 

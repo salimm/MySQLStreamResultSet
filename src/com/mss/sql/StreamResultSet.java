@@ -1,4 +1,9 @@
-package java.sql;
+package com.mss.sql;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * 
@@ -26,7 +31,7 @@ public class StreamResultSet {
 		this.stmt = conn.prepareStatement(query.replace(";", "")
 				+ " LIMIT ?, ?;");
 		this.stmtPreparer = new StatementPreparer(stmt, batchSize);
-		stmtPreparer.nextSegment();
+		readNextResultSet();
 	}
 
 	public String getQuery() {
@@ -52,19 +57,24 @@ public class StreamResultSet {
 		boolean flag = currentResultSet.next();
 		if (!flag) {
 			flag = readNextResultSet();
-			if (!flag)
-				currentResultSet = null;
 		}
 		return flag;
 	}
 
 	private boolean readNextResultSet() throws SQLException {
 		currentResultSet = stmtPreparer.nextSegment().executeQuery();
-		return currentResultSet.next();
+		boolean flag = currentResultSet.next();
+		if (!flag)
+			currentResultSet = null;
+		return flag;
 
 	}
 
-	public ResultSet getCurrentResultSet() {
+	protected ResultSet getCurrentResultSet() {
+		return currentResultSet;
+	}
+
+	public ResultSet getResultSet() {
 		return currentResultSet;
 	}
 
@@ -76,7 +86,7 @@ public class StreamResultSet {
 
 class StatementPreparer {
 
-	private int offset = 1;
+	private int offset = -1;
 	private PreparedStatement stmt;
 	private int batchSize;
 
@@ -86,7 +96,10 @@ class StatementPreparer {
 	}
 
 	public PreparedStatement nextSegment() throws SQLException {
-		offset += batchSize;
+		if (offset == -1)
+			offset = 1;
+		else
+			offset += batchSize;
 		stmt.setInt(1, offset);
 		stmt.setInt(2, batchSize);
 		return stmt;
