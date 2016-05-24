@@ -41,7 +41,7 @@ public class Experiment1 {
 		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		System.out.println("Connected database successfully...");
 
-		String query = "SELECT * FROM TABLE1 as t1, TABLE2 as t2 WHERE t1.id = t2.id  ";
+		String query = "SELECT * FROM TABLE1";
 		int step = 10000;
 
 		List<List<Long>> stats = new ArrayList<List<Long>>();
@@ -70,7 +70,7 @@ public class Experiment1 {
 			tmp = tmp.substring(0, tmp.length() - 1) + "\n";
 			index++;
 		}
-		FileWriter fw = new FileWriter(new File("out/experiment2.csv"));
+		FileWriter fw = new FileWriter(new File("out/experiment1.csv"));
 		fw.write(tmp);
 		fw.flush();
 		fw.close();
