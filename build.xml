@@ -55,4 +55,9 @@
             <classpath refid="MySQLMySQLStreamScanner.classpath"/>
         </java>
     </target>
+    <target name="Experiment1">
+        <java classname="experiments.Experiment1" failonerror="true" fork="yes">
+            <classpath refid="MySQLMySQLStreamScanner.classpath"/>
+        </java>
+    </target>
 </project>
