@@ -7,21 +7,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mss.sql.MySQLStreamUtils;
 import com.mss.sql.StreamResultSet;
 
-/**
- * This experiment is a simple select from one table
- * 
- * @author Salim
- *
- */
-public class CopyOfExperiment2 {
-
+public class Experiments {
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/MYSQL_STREAM";
@@ -30,7 +22,7 @@ public class CopyOfExperiment2 {
 	static final String USER = "STREAM";
 	static final String PASS = "STREAM123";
 
-	public static void main(String[] args) throws ClassNotFoundException,
+	public static void exec(String query) throws ClassNotFoundException,
 			SQLException, IOException {
 
 		// STEP 2: Register JDBC driver
@@ -41,12 +33,11 @@ public class CopyOfExperiment2 {
 		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		System.out.println("Connected database successfully...");
 
-		String query = "SELECT * FROM TABLE1 as t1, TABLE2 as t2 WHERE t1.id = t2.id  ";
 		int step = 10000;
 
 		List<List<Long>> stats = new ArrayList<List<Long>>();
 		stats.add(exp1(1, conn, query, step));
-		 stats.add(exp2(2, conn, query, step, 10));
+		stats.add(exp2(2, conn, query, step, 10));
 		stats.add(exp2(3, conn, query, step, 100));
 		stats.add(exp2(4, conn, query, step, 1000));
 		stats.add(exp2(5, conn, query, step, 10000));
@@ -70,7 +61,7 @@ public class CopyOfExperiment2 {
 			tmp = tmp.substring(0, tmp.length() - 1) + "\n";
 			index++;
 		}
-		FileWriter fw = new FileWriter(new File("out/experiment2.csv"));
+		FileWriter fw = new FileWriter(new File("out/experiment1.csv"));
 		fw.write(tmp);
 		fw.flush();
 		fw.close();
@@ -92,7 +83,7 @@ public class CopyOfExperiment2 {
 		int count = 1;
 		long t1 = System.currentTimeMillis();
 		int round = 0;
-		while (results.next() && count < 100000) {
+		while (results.next() && count < 300000) {
 			results.getDouble("VALUE");
 			results.getString("TXT");
 			count++;
@@ -124,7 +115,7 @@ public class CopyOfExperiment2 {
 		int count = 1;
 		long t1 = System.currentTimeMillis();
 		int round = 0;
-		while (results.next() && count < 100000) {
+		while (results.next() && count < 300000) {
 			results.getResultSet().getDouble("VALUE");
 			results.getResultSet().getString("TXT");
 			count++;
@@ -137,7 +128,8 @@ public class CopyOfExperiment2 {
 				t1 = System.currentTimeMillis();
 			}
 		}
-		
+
 		return stats;
 	}
+
 }
