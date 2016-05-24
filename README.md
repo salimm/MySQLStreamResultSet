@@ -8,7 +8,7 @@ MySQLStreamScanner is a util library that support two different approches to str
 
 Using MySQLStreamScanner can be used to setup Statement instances or ResultSets to support both methods. To support the builtin MySQL method to stream rows one by one MSS configures the statement as suggested [here](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-implementation-notes.html). For the latter option, MSS provides a wrapper over a PreparedStatement that is very similar to a ResultSet but at the backend multiple queries are submitted to fetch subsequent batches/segments of the stream.
 
-### Default MySQL Stream One by One
+### Configuring MySQL Driver to Stream Row by Row
 
 As suggested by MySQL JDBC documentations one can setup a Statement as shown below, which signals the server that results should be provided row by row:
 
