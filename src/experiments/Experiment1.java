@@ -42,7 +42,7 @@ public class Experiment1 {
 		System.out.println("Connected database successfully...");
 
 		String query = "SELECT * FROM TABLE1 ";
-		int step = 1000;
+		int step = 10000;
 
 		List<List<Long>> stats = new ArrayList<List<Long>>();
 		stats.add(exp1(1, conn, query, step));
