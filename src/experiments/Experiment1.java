@@ -46,10 +46,10 @@ public class Experiment1 {
 
 		List<List<Long>> stats = new ArrayList<List<Long>>();
 		stats.add(exp1(1, conn, query, step));
-		// stats.add(exp2(2, conn, query, step, 10));
-		stats.add(exp2(2, conn, query, step, 100));
-		stats.add(exp2(3, conn, query, step, 1000));
-		stats.add(exp2(4, conn, query, step, 10000));
+		 stats.add(exp2(2, conn, query, step, 10));
+		stats.add(exp2(3, conn, query, step, 100));
+		stats.add(exp2(4, conn, query, step, 1000));
+		stats.add(exp2(5, conn, query, step, 10000));
 
 		saveResults(stats, step);
 
