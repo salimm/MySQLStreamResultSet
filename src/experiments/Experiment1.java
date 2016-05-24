@@ -105,6 +105,8 @@ public class Experiment1 {
 				t1 = System.currentTimeMillis();
 			}
 		}
+		results.close();
+		results.getStatement().close();
 		return stats;
 	}
 
@@ -136,6 +138,7 @@ public class Experiment1 {
 				t1 = System.currentTimeMillis();
 			}
 		}
+		
 		return stats;
 	}
 }

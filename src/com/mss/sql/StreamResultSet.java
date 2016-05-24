@@ -62,6 +62,8 @@ public class StreamResultSet {
 	}
 
 	private boolean readNextResultSet() throws SQLException {
+		if(currentResultSet!=null)
+			currentResultSet.close();
 		currentResultSet = stmtPreparer.nextSegment().executeQuery();
 		boolean flag = currentResultSet.next();
 		if (!flag)
