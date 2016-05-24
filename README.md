@@ -27,7 +27,7 @@ ResultSet results = MySQLStreamScanner.createResultSetOneByOne(conn,
 
 Example implementations and experiments are implemented in experiments package. the static function Experiments.exp1 provides and example experiments that read 300,000 rows row by row using this method and logs the time per 10,000.
 
-### Stream results in segments using LIMIT
+### Stream Rows in Batches Using LIMIT
 
 In this method, MySQLStreamScanner provides a wrapper to ResultSet that reads results from MySQL in segments/batches and once rows in a batch are finished, it submits a new query to fetch the next batch in a seamless way. The StreamResultSet class maintains an instance of ResultSet known as currentResultSet that is substitued with a new ResultSet as soon as the rows in the current ResultSet instance are finished. As soon as the ResultSet.next() returns false, StreamResultSet.next() tries submitting a new query by advances the OFFSET of the LIMIT expression by the size of the batch and uses the new ResultSet if not empty.
 
