@@ -92,7 +92,7 @@ public class Experiment2 {
 		int count = 1;
 		long t1 = System.currentTimeMillis();
 		int round = 0;
-		while (results.next() && count < 100000) {
+		while (results.next() && count < 300000) {
 			results.getDouble("VALUE");
 			results.getString("TXT");
 			count++;
@@ -124,7 +124,7 @@ public class Experiment2 {
 		int count = 1;
 		long t1 = System.currentTimeMillis();
 		int round = 0;
-		while (results.next() && count < 100000) {
+		while (results.next() && count < 300000) {
 			results.getResultSet().getDouble("VALUE");
 			results.getResultSet().getString("TXT");
 			count++;
