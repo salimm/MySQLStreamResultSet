@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MySQLStreamUtils {
+public class MySQLStreamScanner {
 
 	public static ResultSet createResultSetOneByOne(Connection conn,String query)
 			throws SQLException {

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mss.sql.MySQLStreamUtils;
+import com.mss.sql.MySQLStreamScanner;
 import com.mss.sql.StreamResultSet;
 
 public class Experiments {
@@ -76,7 +76,7 @@ public class Experiments {
 	public static List<Long> exp1(int exp, Connection conn, String query,
 			int step) throws SQLException {
 		System.out.println("Starting expriment " + exp);
-		ResultSet results = MySQLStreamUtils.createResultSetOneByOne(conn,
+		ResultSet results = MySQLStreamScanner.createResultSetOneByOne(conn,
 				query);
 		List<Long> stats = new ArrayList<Long>();
 
@@ -108,7 +108,7 @@ public class Experiments {
 	public static List<Long> exp2(int exp, Connection conn, String query,
 			int step, int batchSize) throws SQLException {
 		System.out.println("Starting expriment " + exp);
-		StreamResultSet results = MySQLStreamUtils.createResultSet(conn, query,
+		StreamResultSet results = MySQLStreamScanner.createResultSet(conn, query,
 				batchSize);
 		List<Long> stats = new ArrayList<Long>();
 
