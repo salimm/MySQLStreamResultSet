@@ -84,12 +84,12 @@ public class Experiments {
 	public static List<Long> exp0(int exp, Connection conn, String query,
 			int step) throws SQLException {
 		System.out.println("Starting expriment " + exp);
+		long t1 = System.currentTimeMillis();
 		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery(query);
+		ResultSet results = stmt.executeQuery(query.replace(";","") + " LIMIT 300000");
 		List<Long> stats = new ArrayList<Long>();
 
 		int count = 1;
-		long t1 = System.currentTimeMillis();
 		int round = 0;
 		while (results.next() && count < 300000) {
 			results.getDouble("VALUE");

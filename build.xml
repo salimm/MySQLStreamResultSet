@@ -57,19 +57,19 @@
     </target>
     <target name="Experiment1">
         <java classname="experiments.Experiment1" failonerror="true" fork="yes">
-            <jvmarg line="-Xmx1000M"/>
+            <jvmarg line="-Xmx4000M"/>
             <classpath refid="MySQLStreamScanner.classpath"/>
         </java>
     </target>
     <target name="Experiment2">
         <java classname="experiments.Experiment2" failonerror="true" fork="yes">
-            <jvmarg line="-Xmx1000M"/>
+            <jvmarg line="-Xmx4000M"/>
             <classpath refid="MySQLStreamScanner.classpath"/>
         </java>
     </target>
     <target name="Experiment3">
         <java classname="experiments.Experiment3" failonerror="true" fork="yes">
-            <jvmarg line="-Xmx1000M"/>
+            <jvmarg line="-Xmx4000M"/>
             <classpath refid="MySQLStreamScanner.classpath"/>
         </java>
     </target>
