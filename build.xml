@@ -3,13 +3,13 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="MySQLMySQLStreamScanner">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="MySQLStreamScanner">
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../../../../../../Applications/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
-    <path id="MySQLMySQLStreamScanner.classpath">
+    <path id="MySQLStreamScanner.classpath">
         <pathelement location="bin"/>
         <pathelement location="libs/mysql-connector-java-5.1.39-bin.jar"/>
     </path>
@@ -33,7 +33,7 @@
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
-            <classpath refid="MySQLMySQLStreamScanner.classpath"/>
+            <classpath refid="MySQLStreamScanner.classpath"/>
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
@@ -52,22 +52,25 @@
     </target>
     <target name="ExperimentDataGenerator">
         <java classname="experiments.ExperimentDataGenerator" failonerror="true" fork="yes">
-            <classpath refid="MySQLMySQLStreamScanner.classpath"/>
+            <classpath refid="MySQLStreamScanner.classpath"/>
         </java>
     </target>
     <target name="Experiment1">
         <java classname="experiments.Experiment1" failonerror="true" fork="yes">
-            <classpath refid="MySQLMySQLStreamScanner.classpath"/>
+            <jvmarg line="-Xmx1000M"/>
+            <classpath refid="MySQLStreamScanner.classpath"/>
         </java>
     </target>
     <target name="Experiment2">
         <java classname="experiments.Experiment2" failonerror="true" fork="yes">
-            <classpath refid="MySQLMySQLStreamScanner.classpath"/>
+            <jvmarg line="-Xmx1000M"/>
+            <classpath refid="MySQLStreamScanner.classpath"/>
         </java>
     </target>
     <target name="Experiment3">
         <java classname="experiments.Experiment3" failonerror="true" fork="yes">
-            <classpath refid="MySQLMySQLStreamScanner.classpath"/>
+            <jvmarg line="-Xmx1000M"/>
+            <classpath refid="MySQLStreamScanner.classpath"/>
         </java>
     </target>
 </project>
