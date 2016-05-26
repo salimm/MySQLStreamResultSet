@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class Experiment3 {
 
 	public static void main(String[] args) throws ClassNotFoundException,
-			SQLException, IOException {
+			SQLException, IOException, InterruptedException {
 
 		String query = "SELECT * FROM TABLE1 as t1, TABLE2 as t2 WHERE t1.id2 = t2.id  ";
 		Experiments.exec(query, "out/experiment3.csv");

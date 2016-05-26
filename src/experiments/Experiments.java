@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class Experiments {
 	static final String USER = "STREAM";
 	static final String PASS = "STREAM123";
 
-	public static void exec(String query,String outFileName) throws ClassNotFoundException,
-			SQLException, IOException {
+	public static void exec(String query, String outFileName)
+			throws ClassNotFoundException, SQLException, IOException,
+			InterruptedException {
 
 		// STEP 2: Register JDBC driver
 		Class.forName("com.mysql.jdbc.Driver");
@@ -36,18 +38,24 @@ public class Experiments {
 		int step = 10000;
 
 		List<List<Long>> stats = new ArrayList<List<Long>>();
+		stats.add(exp0(0, conn, query, step));
+		Thread.sleep(1000 * 15);
 		stats.add(exp1(1, conn, query, step));
+		Thread.sleep(1000 * 15);
 		stats.add(exp2(2, conn, query, step, 10));
+		Thread.sleep(1000 * 15);
 		stats.add(exp2(3, conn, query, step, 100));
+		Thread.sleep(1000 * 15);
 		stats.add(exp2(4, conn, query, step, 1000));
+		Thread.sleep(1000 * 15);
 		stats.add(exp2(5, conn, query, step, 10000));
 
 		saveResults(stats, step, outFileName);
 
 	}
 
-	private static void saveResults(List<List<Long>> stats, int step,String outFileName)
-			throws IOException {
+	private static void saveResults(List<List<Long>> stats, int step,
+			String outFileName) throws IOException {
 		String tmp = "";
 		for (int i = 0; i < stats.size(); i++) {
 			tmp += "Time Exp " + i + ",";
@@ -66,6 +74,38 @@ public class Experiments {
 		fw.flush();
 		fw.close();
 
+	}
+
+	/**
+	 * This experiment is for one by one read from one table
+	 * 
+	 * @throws SQLException
+	 */
+	public static List<Long> exp0(int exp, Connection conn, String query,
+			int step) throws SQLException {
+		System.out.println("Starting expriment " + exp);
+		Statement stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery(query);
+		List<Long> stats = new ArrayList<Long>();
+
+		int count = 1;
+		long t1 = System.currentTimeMillis();
+		int round = 0;
+		while (results.next() && count < 300000) {
+			results.getDouble("VALUE");
+			results.getString("TXT");
+			count++;
+			if (count % step == 0) {
+				round++;
+				long t2 = System.currentTimeMillis();
+				long time = t2 - t1;
+				System.out.println("round: " + round + " time: " + time);
+				stats.add(time);
+				t1 = System.currentTimeMillis();
+			}
+		}
+		results.getStatement().close();
+		return stats;
 	}
 
 	/**
@@ -108,8 +148,8 @@ public class Experiments {
 	public static List<Long> exp2(int exp, Connection conn, String query,
 			int step, int batchSize) throws SQLException {
 		System.out.println("Starting expriment " + exp);
-		StreamResultSet results = MySQLStreamScanner.createResultSet(conn, query,
-				batchSize);
+		StreamResultSet results = MySQLStreamScanner.createResultSet(conn,
+				query, batchSize);
 		List<Long> stats = new ArrayList<Long>();
 
 		int count = 1;
@@ -128,7 +168,6 @@ public class Experiments {
 				t1 = System.currentTimeMillis();
 			}
 		}
-
 		return stats;
 	}
 
