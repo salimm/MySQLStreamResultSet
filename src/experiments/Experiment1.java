@@ -14,6 +14,6 @@ public class Experiment1 {
 			SQLException, IOException {
 
 		String query = "SELECT * FROM TABLE1";
-		Experiments.exec(query);
+		Experiments.exec(query, "out/experiment1.csv");
 	}
 }
