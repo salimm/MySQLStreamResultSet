@@ -22,7 +22,7 @@ public class Experiments {
 	static final String USER = "STREAM";
 	static final String PASS = "STREAM123";
 
-	public static void exec(String query) throws ClassNotFoundException,
+	public static void exec(String query,String outFileName) throws ClassNotFoundException,
 			SQLException, IOException {
 
 		// STEP 2: Register JDBC driver
@@ -42,11 +42,11 @@ public class Experiments {
 		stats.add(exp2(4, conn, query, step, 1000));
 		stats.add(exp2(5, conn, query, step, 10000));
 
-		saveResults(stats, step);
+		saveResults(stats, step, outFileName);
 
 	}
 
-	private static void saveResults(List<List<Long>> stats, int step)
+	private static void saveResults(List<List<Long>> stats, int step,String outFileName)
 			throws IOException {
 		String tmp = "";
 		for (int i = 0; i < stats.size(); i++) {
@@ -61,7 +61,7 @@ public class Experiments {
 			tmp = tmp.substring(0, tmp.length() - 1) + "\n";
 			index++;
 		}
-		FileWriter fw = new FileWriter(new File("out/experiment1.csv"));
+		FileWriter fw = new FileWriter(new File(outFileName));
 		fw.write(tmp);
 		fw.flush();
 		fw.close();
