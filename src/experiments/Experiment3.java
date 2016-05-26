@@ -16,6 +16,6 @@ public class Experiment3 {
 			SQLException, IOException {
 
 		String query = "SELECT * FROM TABLE1 as t1, TABLE2 as t2 WHERE t1.id2 = t2.id  ";
-		Experiments.exec(query);
+		Experiments.exec(query, "out/experiment3.csv");
 	}
 }
